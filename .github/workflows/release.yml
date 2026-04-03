@@ -31,17 +31,17 @@ jobs:
       - name: Build
         run: |
           # Compilar para Linux (requiere CGO_ENABLED=1 por defecto si usa ALSA)
-          go build -v -o miapp-linux .
+          go build -v -o sound-inaudible-linux .
           # Compilar para Windows (Cross-compilation)
-          GOOS=windows GOARCH=amd64 go build -v -o miapp-windows.exe .
+          GOOS=windows GOARCH=amd64 go build -v -o sound-inaudible.exe .
 
       # 4. Crear release en GitHub
       - name: Create Release
         uses: softprops/action-gh-release@v1
         with:
           files: |
-            miapp-linux
-            miapp-windows.exe
+            sound-inaudible-linux
+            sound-inaudible.exe
           tag_name: v${{ github.run_number }}
           generate_release_notes: true
         env:
