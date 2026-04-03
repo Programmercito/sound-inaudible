@@ -21,7 +21,13 @@ Esta aplicación en Go es básicamente un **despertador invisible** para tu parl
    ```
 
 3. **Para que sea eterno:**
-   Crea un acceso directo a `inaudible.exe` y mételo en la carpeta de inicio de Windows (`shell:startup`). Así, cada vez que prendas la PC, el parlante recibirá sus "cachetadas virtuales" automáticas.
+   Crea un acceso directo a `sound-inaudible.exe` y mételo en la carpeta de inicio de Windows (`shell:startup`). Así, cada vez que prendas la PC, el parlante recibirá sus "cachetadas virtuales" automáticas.
+
+## 🛑 ¿Cómo lo detengo?
+Como ahora el programa corre en **segundo plano** (sin ventana negra), para cerrarlo debes:
+1. Abrir el **Administrador de Tareas** (`Ctrl + Shift + Esc`).
+2. Buscar `sound-inaudible.exe`.
+3. Dale a **Finalizar tarea**.
 
 ---
 
