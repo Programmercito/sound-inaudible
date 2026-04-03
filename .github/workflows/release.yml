@@ -1,0 +1,34 @@
+name: Go Release
+
+on:
+  push:
+    branches:
+      - main
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Checkout del código
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # 2. Configurar Go
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.25.3'   
+
+      # 3. Compilar binario
+      - name: Build
+        run: go build -o miapp .
+
+      # 4. Crear release en GitHub
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: miapp
+        env:
+          GITHUB_TOKEN: ${{ secrets.TOKEN }}
