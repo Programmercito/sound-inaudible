@@ -19,16 +19,30 @@ jobs:
       - name: Setup Go
         uses: actions/setup-go@v5
         with:
-          go-version: '1.25.3'   
+          go-version: '1.25.3'
 
-      # 3. Compilar binario
+      # 2.5 Instalar dependencias para Linux (Oto las requiere para ALSA)
+      - name: Install ALSA dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libasound2-dev
+
+      # 3. Compilar binarios (Linux y Windows)
       - name: Build
-        run: go build -o miapp .
+        run: |
+          # Compilar para Linux (requiere CGO_ENABLED=1 por defecto si usa ALSA)
+          go build -v -o miapp-linux .
+          # Compilar para Windows (Cross-compilation)
+          GOOS=windows GOARCH=amd64 go build -v -o miapp-windows.exe .
 
       # 4. Crear release en GitHub
       - name: Create Release
         uses: softprops/action-gh-release@v1
         with:
-          files: miapp
+          files: |
+            miapp-linux
+            miapp-windows.exe
+          tag_name: v${{ github.run_number }}
+          generate_release_notes: true
         env:
           GITHUB_TOKEN: ${{ secrets.TOKEN }}
